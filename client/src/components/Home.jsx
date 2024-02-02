@@ -36,6 +36,12 @@ const Home = ({ walletAddress, setWalletAddress }) => {
           Register
         </button>
       </Link>
+      <button
+        className="bg-black text-white font-bold py-2 px-3 rounded-full"
+        onClick={connectWallet}
+      >
+        Switch Account
+      </button>
     </div>
   ) : (
     <div>

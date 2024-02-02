@@ -5,6 +5,7 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   try {
     if (
+      !req.body.address ||
       !req.body.name ||
       !req.body.age ||
       !req.body.designation ||
@@ -14,6 +15,7 @@ router.post("/", async (req, res) => {
     }
 
     const check = await Client.find({ address: req.body.address });
+    console.log(check);
 
     if (check.length > 0) {
       return res.status(500).send({
@@ -30,7 +32,6 @@ router.post("/", async (req, res) => {
     };
 
     const client = await Client.create(newClient);
-    console.log("Data Created in Database");
 
     return res.status(201).json(client);
   } catch (err) {
@@ -47,10 +48,14 @@ router.get("/:data", async (req, res) => {
     const address = data[0];
     const password = data[1];
 
-    const client = Client.find({ account, password });
+    console.log(data);
+    const client = await Client.findOne({
+      address,
+      password,
+    });
 
-    if (client.length === 1) {
-      return res.status(200).json(user);
+    if (client) {
+      return res.status(200).json(client);
     } else {
       return res.status(400).send({ message: "No such user" });
     }

@@ -4,7 +4,7 @@ const cors = require("cors");
 const clientRoute = require("./routes/clientRoute");
 
 const PORT = 5555;
-const URL = "mongodb://127.0.0.1/medichain";
+const URL = "mongodb://127.0.0.1:27017/medichain";
 
 const app = express();
 
