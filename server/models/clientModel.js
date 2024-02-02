@@ -21,6 +21,9 @@ const ClientSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  doctors: {
+    type: [String],
+  },
 });
 
 const Client = mongoose.model("clients", ClientSchema);
