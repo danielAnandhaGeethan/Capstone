@@ -132,13 +132,12 @@ const Patient = ({ walletAddress }) => {
 
     console.log(data);
 
-    const cid = await storeData(data);
+    const cid = (await storeData(data)).data.IpfsHash;
 
     const mediChain = await getContract();
     console.log(mediChain);
 
     try {
-      console.log();
       const tx = await mediChain.pushData(cid);
       console.log(tx);
     } catch (err) {
@@ -150,15 +149,15 @@ const Patient = ({ walletAddress }) => {
     const mediChain = await getContract();
     console.log(mediChain);
 
+    let cid = "";
+
     try {
       console.log(walletAddress);
-      const info = await mediChain.getPatientInfo(walletAddress);
-      console.log(info);
+      cid = await mediChain.getPatientInfo(walletAddress);
     } catch (err) {
       console.log(err);
     }
 
-    /*
     axios
       .get(`https://gateway.pinata.cloud/ipfs/${cid}`, {
         headers: {
@@ -171,7 +170,6 @@ const Patient = ({ walletAddress }) => {
       .catch(function (error) {
         console.log(error);
       });
-      */
   };
 
   return (
