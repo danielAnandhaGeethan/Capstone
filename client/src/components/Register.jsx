@@ -1,8 +1,5 @@
-//import { ethers } from "ethers";
 import React, { useState } from "react";
-//import Web3 from "web3";
 import { enqueueSnackbar, SnackbarProvider } from "notistack";
-//import { contractAddress, contractAbi } from "../constants/constants";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -15,18 +12,6 @@ const Register = ({ walletAddress }) => {
   const navigate = useNavigate();
 
   const pushData = async () => {
-    /*
-    const web3 = new Web3(window.ethereum);
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = provider.getSigner();
-
-    const mediChain = new web3.eth.Contract(
-      contractAbi,
-      contractAddress,
-      signer
-    );
-    */
-
     if (
       name === "" ||
       age === "" ||

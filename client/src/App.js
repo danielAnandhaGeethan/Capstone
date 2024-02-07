@@ -11,41 +11,6 @@ import Doctor from "./components/Doctor";
 
 const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
-  const [cid, setCid] = useState("");
-
-  const storeData = (data) => {
-    axios
-      .post("https://api.pinata.cloud/pinning/pinJSONToIPFS", data, {
-        headers: {
-          "Content-Type": "application/json",
-          pinata_api_key: "38690e4d17a7e4820ed6",
-          pinata_secret_api_key:
-            "d3199a0a493b914fd974ffa0ba7bb38fbbffc4acd83b6cbc927e42dc8c7cb7ad",
-        },
-      })
-      .then(function (response) {
-        setCid(response.data.IpfsHash);
-        console.log(response.data.IpfsHash);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const retrieveData = () => {
-    axios
-      .get(`https://gateway.pinata.cloud/ipfs/${cid}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
   return (
     <BrowserRouter>
@@ -67,8 +32,14 @@ const App = () => {
           path="/register"
           element={<Register walletAddress={walletAddress} />}
         />
-        <Route path="/patient" element={<Patient />} />
-        <Route path="/doctor" element={<Doctor />} />
+        <Route
+          path="/patient"
+          element={<Patient walletAddress={walletAddress} />}
+        />
+        <Route
+          path="/doctor"
+          element={<Doctor walletAddress={walletAddress} />}
+        />
       </Routes>
     </BrowserRouter>
   );
