@@ -23,14 +23,15 @@ const PresentData = ({
 
   return (
     <div>
-      <div className="Present Problem">
-        <h1>Present Data</h1>
+      <div className="Present Problem flex flex-col gap-1">
+        <h1 className="text-[#468655] font-bold underline">Present Data</h1>
         <div className="Current Problem">
-          <h1>Current Problem : </h1>
+          <h1 className="text-[#124559] font-bold">Current Problem</h1>
           <input
             type="text"
             value={currentProblem}
             onChange={(e) => setCurrentProblem(e.target.value)}
+            className="focus:outline-none rounded-xl bg-white bg-opacity-40 px-2 text-gray-600"
           />
         </div>
         <div className="Duration of Current Problem">

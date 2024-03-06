@@ -3,7 +3,7 @@ import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Register = ({ walletAddress }) => {
+const Register = ({ walletAddress, setCurrent }) => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [designation, setDesignation] = useState("");
@@ -74,31 +74,28 @@ const Register = ({ walletAddress }) => {
   };
 
   return (
-    <div className="flex justify-center h-screen py-10">
-      <div className="flex flex-col items-center w-[60%] gap-5 py-10 bg-yellow-400">
-        <SnackbarProvider />
+    <div className="flex flex-col items-center gap-10 py-5 px-8">
+      <SnackbarProvider />
+      <div className="flex flex-col gap-4 items-center">
         <div>
-          <h1>Account Address : </h1>
-          <h1>{walletAddress || ""}</h1>
-        </div>
-        <div>
-          <h1>Name : </h1>
           <input
             type="text"
+            placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm text-[#152528]"
           />
         </div>
         <div>
-          <h1>Age : </h1>
           <input
             type="number"
+            placeholder="Age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
           />
         </div>
-        <div>
-          <h1>Designation : </h1>
+        <div className="flex gap-5">
           <label>
             <input
               type="radio"
@@ -106,7 +103,7 @@ const Register = ({ walletAddress }) => {
               checked={designation === "doctor"}
               onChange={(e) => setDesignation(e.target.value)}
             />
-            Doctor
+            <span className="text-sm text-[#152528]">Doctor</span>
           </label>
           <label>
             <input
@@ -115,27 +112,39 @@ const Register = ({ walletAddress }) => {
               checked={designation === "patient"}
               onChange={(e) => setDesignation(e.target.value)}
             />
-            Patient
+            <span className="text-sm text-[#152528]">Patient</span>
           </label>
         </div>
         <div>
-          <h1>Password : </h1>
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
           />
         </div>
         <div>
-          <h1>Confirm Password : </h1>
           <input
             type="password"
+            placeholder="Confirm Password"
             value={rePassword}
             onChange={(e) => setRePassword(e.target.value)}
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
           />
         </div>
-        <div>
+      </div>
+      <div className="flex flex-col items-center gap-3">
+        <div className="bg-green-600 px-2 py-1 rounded-xl">
           <button onClick={() => pushData()}>Register</button>
+        </div>
+        <div>
+          <h1
+            className="text-sm text-blue-700 underline cursor-pointer"
+            onClick={() => setCurrent("Login")}
+          >
+            Already Registered? Login
+          </h1>
         </div>
       </div>
     </div>

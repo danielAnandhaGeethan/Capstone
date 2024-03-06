@@ -3,7 +3,7 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ walletAddress }) => {
+const Login = ({ walletAddress, setCurrent }) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
@@ -41,23 +41,28 @@ const Login = ({ walletAddress }) => {
   };
 
   return (
-    <div className="flex justify-center h-screen py-10">
-      <div className="flex flex-col items-center w-[60%] gap-5 py-10 bg-yellow-400">
-        <SnackbarProvider />
-        <div>
-          <h1>Account Address : </h1>
-          <h1>{walletAddress || ""}</h1>
-        </div>
-        <div>
-          <h1>Password : </h1>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
+    <div className="flex flex-col items-center mt-[80px] gap-10 py-5 px-8">
+      <SnackbarProvider />
+      <div>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
+        />
+      </div>
+      <div className="flex flex-col justify-center items-center gap-3">
+        <div className="bg-green-600 px-2 py-1 rounded-xl">
           <button onClick={() => getData()}>Login</button>
+        </div>
+        <div>
+          <h1
+            className="text-sm text-blue-700 underline cursor-pointer"
+            onClick={() => setCurrent("Register")}
+          >
+            New here? Register
+          </h1>
         </div>
       </div>
     </div>

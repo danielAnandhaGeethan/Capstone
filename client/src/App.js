@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Home from "./components/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
@@ -23,14 +22,6 @@ const App = () => {
               setWalletAddress={setWalletAddress}
             />
           }
-        />
-        <Route
-          path="/login"
-          element={<Login walletAddress={walletAddress} />}
-        />
-        <Route
-          path="/register"
-          element={<Register walletAddress={walletAddress} />}
         />
         <Route
           path="/patient"
