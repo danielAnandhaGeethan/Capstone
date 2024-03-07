@@ -11,7 +11,6 @@ import Transactions from "./Transactions";
 import Send from "./Send";
 import Request from "./Request";
 import { ethers } from "ethers";
-import Web3 from "web3";
 import { contractAddress, contractAbi } from "../constants/constants";
 
 const Patient = ({ walletAddress }) => {
