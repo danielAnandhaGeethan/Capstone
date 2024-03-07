@@ -1,4 +1,5 @@
 import React from "react";
+import Additions from "./Additions";
 
 const PresentData = ({
   currentProblem,
@@ -23,48 +24,62 @@ const PresentData = ({
 
   return (
     <div>
-      <div className="Present Problem flex flex-col gap-1">
-        <h1 className="text-[#468655] font-bold underline">Present Data</h1>
-        <div className="Current Problem">
-          <h1 className="text-[#124559] font-bold">Current Problem</h1>
+      <div className="flex flex-col gap-1">
+        <h1 className="text-[#468655] font-semibold underline">Present Data</h1>
+        <div>
+          <h1 className="text-[#124559] font-semibold">Current Problem</h1>
           <input
             type="text"
             value={currentProblem}
             onChange={(e) => setCurrentProblem(e.target.value)}
-            className="focus:outline-none rounded-xl bg-white bg-opacity-40 px-2 text-gray-600"
+            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
-        <div className="Duration of Current Problem">
-          <h1>Duration of Current Problem : </h1>
+        <div>
+          <h1 className="text-[#124559] font-semibold">
+            Duration of Current Problem
+          </h1>
           <input
             type="text"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
+            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
-        <div className="Current Problem">
-          <h1>Symptoms for Current Problem : </h1>
+        <div>
+          <h1 className="text-[#124559] font-semibold">
+            Symptoms for Current Problem
+          </h1>
           <input
             type="text"
             value={currentSymptom}
             onChange={(e) => setCurrentSymptom(e.target.value)}
+            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
           />
-          <button onClick={() => addSymptom()}>Add</button>
+          <button
+            className="ml-3 bg-white/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
+            onClick={() => addSymptom()}
+          >
+            Add
+          </button>
+          <Additions props={symptoms} setProps={setSymptoms} />
         </div>
-        <div className="Aggrevating Factor">
-          <h1>Aggrevating Factor : </h1>
+        <div>
+          <h1 className="text-[#124559] font-semibold">Aggrevating Factor</h1>
           <input
             type="text"
             value={aggrevating}
             onChange={(e) => setAggrevating(e.target.value)}
+            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
-        <div className="Current Problem">
-          <h1>Relieving Factor : </h1>
+        <div>
+          <h1 className="text-[#124559] font-semibold">Relieving Factor</h1>
           <input
             type="text"
             value={relieving}
             onChange={(e) => setRelieving(e.target.value)}
+            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
       </div>

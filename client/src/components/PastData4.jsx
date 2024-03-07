@@ -14,8 +14,8 @@ const PastData4 = ({
 }) => {
   return (
     <div>
-      <div className="Tumor/Cancer">
-        <h1>Tumor/Cancer : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Tumor/Cancer</h1>
         <label>
           <input
             type="radio"
@@ -23,7 +23,7 @@ const PastData4 = ({
             checked={tumorCancer === "yes"}
             onChange={(e) => setTumorCancer(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -32,11 +32,11 @@ const PastData4 = ({
             checked={tumorCancer === "no"}
             onChange={(e) => setTumorCancer(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Anxiety Attacks">
-        <h1>Anxiety Attacks : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Anxiety Attacks</h1>
         <label>
           <input
             type="radio"
@@ -44,7 +44,7 @@ const PastData4 = ({
             checked={anxietyAttacks === "yes"}
             onChange={(e) => setAnxietyAttacks(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -53,11 +53,11 @@ const PastData4 = ({
             checked={anxietyAttacks === "no"}
             onChange={(e) => setAnxietyAttacks(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Headaches">
-        <h1>Headaches : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Headaches</h1>
         <label>
           <input
             type="radio"
@@ -65,7 +65,7 @@ const PastData4 = ({
             checked={headache === "yes"}
             onChange={(e) => setHeadache(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -74,11 +74,11 @@ const PastData4 = ({
             checked={headache === "no"}
             onChange={(e) => setHeadache(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Diabetes">
-        <h1>Diabetes : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Diabetes</h1>
         <label>
           <input
             type="radio"
@@ -86,7 +86,7 @@ const PastData4 = ({
             checked={diabetes === "yes"}
             onChange={(e) => setDiabetes(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -95,11 +95,11 @@ const PastData4 = ({
             checked={diabetes === "no"}
             onChange={(e) => setDiabetes(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Sleep Apnea">
-        <h1>Sleep Apnea : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Sleep Apnea</h1>
         <label>
           <input
             type="radio"
@@ -107,7 +107,7 @@ const PastData4 = ({
             checked={sleepApnea === "yes"}
             onChange={(e) => setSleepApnea(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -116,7 +116,7 @@ const PastData4 = ({
             checked={sleepApnea === "no"}
             onChange={(e) => setSleepApnea(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
     </div>

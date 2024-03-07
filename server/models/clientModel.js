@@ -21,7 +21,7 @@ const ClientSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  doctors: {
+  communications: {
     type: [String],
   },
 });

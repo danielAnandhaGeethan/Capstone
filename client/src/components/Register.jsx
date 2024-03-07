@@ -40,6 +40,7 @@ const Register = ({ walletAddress, setCurrent }) => {
       age,
       designation: designation === "patient" ? "1" : "2",
       password,
+      communications: [],
     };
 
     axios
@@ -103,7 +104,7 @@ const Register = ({ walletAddress, setCurrent }) => {
               checked={designation === "doctor"}
               onChange={(e) => setDesignation(e.target.value)}
             />
-            <span className="text-sm text-[#152528]">Doctor</span>
+            <span className="text-sm text-[#152528] ml-1">Doctor</span>
           </label>
           <label>
             <input
@@ -112,7 +113,7 @@ const Register = ({ walletAddress, setCurrent }) => {
               checked={designation === "patient"}
               onChange={(e) => setDesignation(e.target.value)}
             />
-            <span className="text-sm text-[#152528]">Patient</span>
+            <span className="text-sm text-[#152528] ml-1">Patient</span>
           </label>
         </div>
         <div>

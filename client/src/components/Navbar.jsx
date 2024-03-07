@@ -6,7 +6,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full border-b border-400 flex justify-center fixed relative">
+    <div className="w-full border-b border-gray-300 flex justify-center fixed left-0 top-0">
       <div className="py-4">
         <img
           src={Mediblock}

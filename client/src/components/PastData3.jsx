@@ -14,8 +14,8 @@ const PastData3 = ({
 }) => {
   return (
     <div>
-      <div className="Liver">
-        <h1>Liver Problem : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Liver Problem</h1>
         <label>
           <input
             type="radio"
@@ -23,7 +23,7 @@ const PastData3 = ({
             checked={liver === "yes"}
             onChange={(e) => setLiver(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -32,11 +32,11 @@ const PastData3 = ({
             checked={liver === "no"}
             onChange={(e) => setLiver(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Drug">
-        <h1>Drug use : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Drug use</h1>
         <label>
           <input
             type="radio"
@@ -44,7 +44,7 @@ const PastData3 = ({
             checked={drug === "yes"}
             onChange={(e) => setDrug(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -53,11 +53,11 @@ const PastData3 = ({
             checked={drug === "no"}
             onChange={(e) => setDrug(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Pacemaker">
-        <h1>Pacemaker : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Pacemaker</h1>
         <label>
           <input
             type="radio"
@@ -65,7 +65,7 @@ const PastData3 = ({
             checked={pacemaker === "yes"}
             onChange={(e) => setPacemaker(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -74,11 +74,11 @@ const PastData3 = ({
             checked={pacemaker === "no"}
             onChange={(e) => setPacemaker(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Implants">
-        <h1>Electrical Implants : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Electrical Implants</h1>
         <label>
           <input
             type="radio"
@@ -86,7 +86,7 @@ const PastData3 = ({
             checked={implants === "yes"}
             onChange={(e) => setImplants(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -95,11 +95,11 @@ const PastData3 = ({
             checked={implants === "no"}
             onChange={(e) => setImplants(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
-      <div className="Smoking">
-        <h1>Smoking : </h1>
+      <div>
+        <h1 className="text-[#124559] font-semibold">Smoking</h1>
         <label>
           <input
             type="radio"
@@ -107,7 +107,7 @@ const PastData3 = ({
             checked={smoking === "yes"}
             onChange={(e) => setSmoking(e.target.value)}
           />
-          Yes
+          <span className="m-1 text-[#444B44]">Yes</span>
         </label>
         <label>
           <input
@@ -116,7 +116,7 @@ const PastData3 = ({
             checked={smoking === "no"}
             onChange={(e) => setSmoking(e.target.value)}
           />
-          No
+          <span className="m-1 text-[#444B44]">No</span>
         </label>
       </div>
     </div>

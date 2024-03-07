@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   return res.status(234).send("Welcome to the App");
 });
 
-app.use("/clients", clientRoute);
+app.use("/", clientRoute);
 
 mongoose
   .connect(URL)

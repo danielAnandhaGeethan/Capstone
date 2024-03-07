@@ -2,7 +2,7 @@ const express = require("express");
 const Client = require("../models/clientModel");
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/clients/", async (req, res) => {
   try {
     if (
       !req.body.address ||
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:data", async (req, res) => {
+router.get("/clients/:data", async (req, res) => {
   try {
     const data = req.params.data.split(",");
 
@@ -56,6 +56,55 @@ router.get("/:data", async (req, res) => {
 
     if (client) {
       return res.status(200).json(client);
+    } else {
+      return res.status(400).send({ message: "No such user" });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+});
+
+router.get("/patient/:data", async (req, res) => {
+  try {
+    const data = req.params.data.split(",");
+
+    const address = data[0];
+
+    const client = await Client.findOne({
+      address,
+    });
+
+    if (client) {
+      return res.status(200).json(client);
+    } else {
+      return res.status(400).send({ message: "No such user" });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+});
+
+router.put("/patient/:data", async (req, res) => {
+  try {
+    const data = req.params.data.split(",");
+
+    const sender = data[0];
+    const receiver = data[1];
+
+    const updatedClient = await Client.findOneAndUpdate(
+      { address: receiver },
+      { $push: { communications: sender } },
+      { new: true }
+    );
+
+    console.log(updatedClient);
+
+    if (updatedClient) {
+      return res.status(200).send({ message: "Done" });
     } else {
       return res.status(400).send({ message: "No such user" });
     }

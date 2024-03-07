@@ -6,11 +6,8 @@ import PastData3 from "./PastData3";
 import PastData4 from "./PastData4";
 import OtherData from "./OtherData";
 import axios from "axios";
-import { ethers } from "ethers";
-import Web3 from "web3";
-import { contractAddress, contractAbi } from "../constants/constants";
 
-const History = ({ walletAddress }) => {
+const History = ({ walletAddress, getContract }) => {
   const [gender, setGender] = useState("");
   const [currentSurgery, setCurrentSurgery] = useState("");
   const [currentAllergy, setCurrentAllergy] = useState("");
@@ -64,16 +61,6 @@ const History = ({ walletAddress }) => {
     setCurrentAllergy("");
 
     console.log(allergies);
-  };
-
-  const getContract = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner();
-
-    const mediChain = new ethers.Contract(contractAddress, contractAbi, signer);
-
-    return mediChain;
   };
 
   const storeData = async (data) => {
@@ -164,19 +151,19 @@ const History = ({ walletAddress }) => {
           "Content-Type": "application/json",
         },
       })
-      .then(function (response) {
+      .then((response) => {
         console.log(response.data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="px-4 rounded-xl border shadow-xl md:px-8 py-5 flex flex-col gap-4 bg-[#124559] bg-opacity-40">
+    <div className="flex justify-center items-center">
+      <div className="px-4 rounded-xl shadow-2xl md:px-8 py-5 flex flex-col gap-10 bg-[#F4F3EE]/20">
         <div className="Gender">
-          <h1 className="text-[#124559] font-bold">Gender</h1>
+          <h1 className="text-[#124559] font-semibold">Gender</h1>
           <div className="flex gap-5 items-center">
             <label>
               <input
@@ -185,7 +172,7 @@ const History = ({ walletAddress }) => {
                 checked={gender === "male"}
                 onChange={(e) => setGender(e.target.value)}
               />
-              <span className="text-[#E7F1D0] ml-1">Male</span>
+              <span className="text-[#444B44] ml-1">Male</span>
             </label>
             <label>
               <input
@@ -194,7 +181,7 @@ const History = ({ walletAddress }) => {
                 checked={gender === "female"}
                 onChange={(e) => setGender(e.target.value)}
               />
-              <span className="text-[#E7F1D0] ml-1">Female</span>
+              <span className="text-[#444B44] ml-1">Female</span>
             </label>
           </div>
         </div>
@@ -213,7 +200,7 @@ const History = ({ walletAddress }) => {
           setRelieving={setRelieving}
         />
         <div className="Past Problem">
-          <h1>Past Data</h1>
+          <h1 className="text-[#468655] font-semibold underline">Past Data</h1>
           <div className="flex gap-2 grid grid-cols-1 md:grid-cols-2">
             <PastData1
               breathing={breathing}
@@ -284,8 +271,11 @@ const History = ({ walletAddress }) => {
             addSurgery={addSurgery}
           />
         </div>
-        <button onClick={() => sendDataToBlockchain()}>Submit</button>
-        <button onClick={() => retrieveData()}>Check Retrieval</button>
+        <button onClick={() => sendDataToBlockchain()}>
+          <span className="bg-green-700 rounded-xl py-1 px-2 text-white/90">
+            Submit
+          </span>
+        </button>
       </div>
     </div>
   );
