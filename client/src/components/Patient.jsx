@@ -82,7 +82,7 @@ const Patient = ({ walletAddress }) => {
           ) : current === 4 ? (
             <Request walletAddress={walletAddress} />
           ) : (
-            <Send walletAddress={walletAddress} />
+            <Send walletAddress={walletAddress} designation="Patient" />
           )}
         </div>
       </div>

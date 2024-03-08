@@ -2,7 +2,7 @@ import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 
-const Send = ({ walletAddress }) => {
+const Send = ({ walletAddress, designation }) => {
   const [receiver, setReceiver] = useState("");
 
   const addToDoctor = () => {
@@ -38,7 +38,9 @@ const Send = ({ walletAddress }) => {
       <SnackbarProvider />
       <input
         type="text"
-        placeholder="Enter Doctor's Address . . ."
+        placeholder={`Enter ${
+          designation === "Doctor" ? "Patient" : "Doctor"
+        }'s Address . . .`}
         className="px-5 py-1 focus:outline-none rounded-2xl w-[450px] text-center"
         value={receiver}
         onChange={(e) => setReceiver(e.target.value)}

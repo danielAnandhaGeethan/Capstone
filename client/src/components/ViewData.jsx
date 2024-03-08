@@ -8,6 +8,8 @@ const ViewData = ({ walletAddress, getContract }) => {
   const [password, setPassword] = useState("");
   const [key, setKey] = useState("");
   const [data, setData] = useState([]);
+  const [clicked, setClicked] = useState(false);
+  const [display, setDisplay] = useState(false);
 
   const getCid = async () => {
     if (password.length === 0) {
@@ -28,6 +30,7 @@ const ViewData = ({ walletAddress, getContract }) => {
         try {
           const x = await mediChain.getPatientInfo(walletAddress);
           setCid(x);
+          setClicked(true);
         } catch (err) {
           console.log(err);
         }
@@ -41,6 +44,11 @@ const ViewData = ({ walletAddress, getContract }) => {
   };
 
   const getData = () => {
+    if (display) {
+      setDisplay(!display);
+      return;
+    }
+
     axios
       .get(`https://gateway.pinata.cloud/ipfs/${key}`, {
         headers: {
@@ -48,7 +56,8 @@ const ViewData = ({ walletAddress, getContract }) => {
         },
       })
       .then((response) => {
-        setData([response.data]);
+        setData(response.data);
+        setDisplay(!display);
       })
       .catch((error) => {
         enqueueSnackbar("Server Error !!!", {
@@ -79,11 +88,11 @@ const ViewData = ({ walletAddress, getContract }) => {
       <div>
         <h1 className="font-semibold text-[#344966] text-lg">{cid}</h1>
       </div>
-      <div className="flex gap-3">
+      <div className={`${clicked ? "opacity-100" : "hidden"} flex gap-3`}>
         <input
           type="text"
           placeholder="Enter CID . . ."
-          className="px-5 py-1 rounded-2xl focus:outline-none w-[450px] text-center"
+          className="px-5 py-1 rounded-2xl focus:outline-none w-[500px] text-center"
           value={key}
           onChange={(e) => setKey(e.target.value)}
         />
@@ -91,10 +100,10 @@ const ViewData = ({ walletAddress, getContract }) => {
           className="bg-blue-500 px-2 rounded-2xl text-black/90"
           onClick={getData}
         >
-          Display
+          {!display ? "Display" : "Close"}
         </button>
       </div>
-      {data.length === 0 ? "" : <Display data={data} />}
+      {data.length === 0 ? "" : <Display data={data} display={display} />}
     </div>
   );
 };
