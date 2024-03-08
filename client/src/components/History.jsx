@@ -117,8 +117,6 @@ const History = ({ walletAddress, getContract }) => {
       Allergies: allergies,
     };
 
-    console.log(data);
-
     const cid = (await storeData(data)).data.IpfsHash;
 
     console.log(cid);

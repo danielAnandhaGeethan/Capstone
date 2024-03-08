@@ -76,7 +76,7 @@ const Patient = ({ walletAddress }) => {
           {current === 1 ? (
             <History walletAddress={walletAddress} getContract={getContract} />
           ) : current === 2 ? (
-            <Transactions />
+            <Transactions walletAddress={walletAddress} />
           ) : current === 3 ? (
             <ViewData walletAddress={walletAddress} getContract={getContract} />
           ) : current === 4 ? (
