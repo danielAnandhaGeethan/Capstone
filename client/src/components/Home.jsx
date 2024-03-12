@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Login from "./Login";
 import Register from "./Register";
@@ -21,6 +20,7 @@ const Home = ({ walletAddress, setWalletAddress }) => {
 
         console.log(accounts);
         setWalletAddress(accounts[0]);
+        localStorage.setItem("userId", accounts[0]);
       } catch (err) {
         console.log("Connection error : ", err);
       }
@@ -31,7 +31,10 @@ const Home = ({ walletAddress, setWalletAddress }) => {
 
   return walletAddress !== null ? (
     <div>
-      <Navbar />
+      <Navbar
+        walletAddress={walletAddress}
+        setWalletAddress={setWalletAddress}
+      />
       <div className="flex justify-center items-center h-screen pt-10 bg-gradient-to-b from-[#F5F9E9] to-[#869798]">
         <div className="flex flex-col justify-center items-center gap-7">
           <div className="flex items-center gap-4 mb-5">
@@ -91,7 +94,10 @@ const Home = ({ walletAddress, setWalletAddress }) => {
     </div>
   ) : (
     <div>
-      <Navbar />
+      <Navbar
+        walletAddress={walletAddress}
+        setWalletAddress={setWalletAddress}
+      />
       <div className="flex justify-center items-center gap-28 bg-gradient-to-b from-[#F5F9E9] to-[#869798] h-screen">
         <div className="flex flex-col items-center gap-10 bg-white/10 p-20 rounded-xl shadow-xl">
           <h1 className="bg-red-600 bg-opacity-40 border border-red-400 p-4 text-gray-700 rounded-xl">

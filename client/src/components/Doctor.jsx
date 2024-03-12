@@ -9,7 +9,7 @@ import ViewData from "./ViewData";
 import Send from "./Send";
 import Data from "./Data";
 
-const Doctor = ({ walletAddress }) => {
+const Doctor = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
 
   const getContract = async () => {
@@ -24,7 +24,10 @@ const Doctor = ({ walletAddress }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F5F9E9] to-[#869798]">
-      <Navbar />
+      <Navbar
+        walletAddress={walletAddress}
+        setWalletAddress={setWalletAddress}
+      />
       <div className="flex flex-col items-center py-28 gap-7">
         <div className="flex justify-center items-center gap-5 fixed">
           <img

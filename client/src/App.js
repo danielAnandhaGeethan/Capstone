@@ -5,7 +5,9 @@ import Patient from "./components/Patient";
 import Doctor from "./components/Doctor";
 
 const App = () => {
-  const [walletAddress, setWalletAddress] = useState(null);
+  const [walletAddress, setWalletAddress] = useState(
+    localStorage.getItem("userId") || null
+  );
 
   return (
     <BrowserRouter>
@@ -21,11 +23,21 @@ const App = () => {
         />
         <Route
           path="/patient"
-          element={<Patient walletAddress={walletAddress} />}
+          element={
+            <Patient
+              walletAddress={walletAddress}
+              setWalletAddress={setWalletAddress}
+            />
+          }
         />
         <Route
           path="/doctor"
-          element={<Doctor walletAddress={walletAddress} />}
+          element={
+            <Doctor
+              walletAddress={walletAddress}
+              setWalletAddress={setWalletAddress}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>
