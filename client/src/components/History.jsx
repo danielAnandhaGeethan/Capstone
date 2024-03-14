@@ -130,33 +130,6 @@ const History = ({ walletAddress, getContract }) => {
     }
   };
 
-  const retrieveData = async () => {
-    const mediChain = await getContract();
-    console.log(mediChain);
-
-    let cid = "";
-
-    try {
-      cid = await mediChain.getPatientInfo(walletAddress);
-      console.log(cid);
-    } catch (err) {
-      console.log(err);
-    }
-
-    axios
-      .get(`https://gateway.pinata.cloud/ipfs/${cid}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <div className="flex justify-center items-center">
       <div className="px-4 rounded-xl shadow-2xl md:px-8 py-5 flex flex-col gap-10 bg-[#F4F3EE]/20">

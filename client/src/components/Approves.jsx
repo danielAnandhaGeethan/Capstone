@@ -2,14 +2,16 @@ import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 
-const Data = ({ walletAddress, getContract }) => {
-  const [data, setData] = useState([
-    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
-  ]);
+const Approves = ({ walletAddress, getContract }) => {
+  const [data, setData] = useState();
   const [clicked, setClicked] = useState(false);
   const [cid, setCid] = useState("");
 
-  const getRequests = async () => {
+  useEffect(() => {
+    getApproves();
+  });
+
+  const getApproves = async () => {
     if (walletAddress === "") {
       enqueueSnackbar("Not Logged In", {
         variant: "warning",
@@ -105,4 +107,4 @@ const Data = ({ walletAddress, getContract }) => {
   );
 };
 
-export default Data;
+export default Approves;

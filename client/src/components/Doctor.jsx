@@ -7,7 +7,7 @@ import request from "../assets/request.png";
 import send from "../assets/send.png";
 import ViewData from "./ViewData";
 import Send from "./Send";
-import Data from "./Data";
+import Approves from "./Approves";
 
 const Doctor = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
@@ -59,7 +59,7 @@ const Doctor = ({ walletAddress, setWalletAddress }) => {
           {current === 1 ? (
             <ViewData walletAddress={walletAddress} getContract={getContract} />
           ) : current === 2 ? (
-            <Data walletAddress={walletAddress} getContract={getContract} />
+            <Approves walletAddress={walletAddress} getContract={getContract} />
           ) : (
             <Send walletAddress={walletAddress} designation="Doctor" />
           )}

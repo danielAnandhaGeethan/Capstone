@@ -3,9 +3,11 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 
 const Request = ({ walletAddress }) => {
-  const [requests, setRequests] = useState([
-    "0x4b7fcd94edc6da065955c601a9c4fe9abef2ae15",
-  ]);
+  const [requests, setRequests] = useState();
+
+  useEffect(() => {
+    getRequests();
+  });
 
   const getRequests = async () => {
     if (walletAddress === "") {
