@@ -3,7 +3,7 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 
 const Approves = ({ walletAddress, getContract }) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [cid, setCid] = useState("");
 
@@ -25,9 +25,9 @@ const Approves = ({ walletAddress, getContract }) => {
     axios
       .get(`http://localhost:5555/patient/${data}`)
       .then((res) => {
-        const requests = res.data.communications;
+        const approves = res.data.communications;
 
-        setData(requests);
+        setData(approves);
       })
       .catch((err) => {
         enqueueSnackbar("Server Error !!!", {
@@ -63,7 +63,7 @@ const Approves = ({ walletAddress, getContract }) => {
     <div>
       <SnackbarProvider />
       <div className="flex flex-col gap-4">
-        {data.length > 0 ? (
+        {data.length !== 0 ? (
           data.map((data, index) => (
             <div
               key={index}

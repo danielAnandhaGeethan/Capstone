@@ -4,7 +4,7 @@ import History from "./History";
 import request from "../assets/request.png";
 import history from "../assets/history.png";
 import search from "../assets/search.png";
-import transactions from "../assets/transactions.png";
+import transact from "../assets/transactions.png";
 import send from "../assets/send.png";
 import ViewData from "./ViewData";
 import Transactions from "./Transactions";
@@ -15,6 +15,11 @@ import { contractAddress, contractAbi } from "../constants/constants";
 
 const Patient = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
+  const [transactions, setTransactions] = useState([
+    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
+    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
+    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
+  ]);
 
   const getContract = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -43,7 +48,7 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
             onClick={() => setCurrent(1)}
           />
           <img
-            src={transactions}
+            src={transact}
             alt="Transations"
             className={`${
               current === 2 ? "opacity-100 scale-125" : "opacity-30"
@@ -79,13 +84,25 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
           {current === 1 ? (
             <History walletAddress={walletAddress} getContract={getContract} />
           ) : current === 2 ? (
-            <Transactions walletAddress={walletAddress} />
+            <Transactions
+              walletAddress={walletAddress}
+              transactions={transactions}
+            />
           ) : current === 3 ? (
             <ViewData walletAddress={walletAddress} getContract={getContract} />
           ) : current === 4 ? (
-            <Request walletAddress={walletAddress} />
+            <Request
+              walletAddress={walletAddress}
+              transactions={transactions}
+              setTransactions={setTransactions}
+            />
           ) : (
-            <Send walletAddress={walletAddress} designation="Patient" />
+            <Send
+              walletAddress={walletAddress}
+              designation="Patient"
+              transactions={transactions}
+              setTransactions={setTransactions}
+            />
           )}
         </div>
       </div>

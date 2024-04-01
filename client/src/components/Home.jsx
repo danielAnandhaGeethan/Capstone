@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Login from "./Login";
 import Register from "./Register";
+import bg from "../assets/bg.jpg";
 
 const Home = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState("Login");
@@ -98,8 +99,19 @@ const Home = ({ walletAddress, setWalletAddress }) => {
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
       />
-      <div className="flex justify-center items-center gap-28 bg-gradient-to-b from-[#F5F9E9] to-[#869798] h-screen">
-        <div className="flex flex-col items-center gap-10 bg-white/10 p-20 rounded-xl shadow-xl">
+      <div className="flex flex-col justify-center items-center gap-28 h-screen">
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundImage: `url(${bg})`,
+            backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+          className="-z-1"
+        ></div>
+        <div className="flex flex-col items-center gap-10 bg-white/10 p-20 rounded-xl shadow-xl z-1">
           <h1 className="bg-red-600 bg-opacity-40 border border-red-400 p-4 text-gray-700 rounded-xl">
             !!! Account Not Connected !!!
           </h1>

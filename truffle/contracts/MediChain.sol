@@ -6,7 +6,6 @@ contract MediChain {
 
     mapping(address => string) public patientInfo;
 
-
     constructor() public {
         name = "medichain";
     }

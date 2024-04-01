@@ -2,8 +2,8 @@ import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 
-const Request = ({ walletAddress }) => {
-  const [requests, setRequests] = useState();
+const Request = ({ walletAddress, transactions, setTransactions }) => {
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     getRequests();
@@ -23,9 +23,9 @@ const Request = ({ walletAddress }) => {
     axios
       .get(`http://localhost:5555/patient/${data}`)
       .then((res) => {
-        const requests = res.data.communications;
+        const data = res.data.communications;
 
-        setRequests(requests);
+        setRequests(data);
       })
       .catch((err) => {
         enqueueSnackbar("Server Error !!!", {
@@ -37,6 +37,8 @@ const Request = ({ walletAddress }) => {
 
   const addToDoctor = (receiver) => {
     const data = [walletAddress, receiver];
+
+    setTransactions([...transactions, receiver]);
 
     axios
       .put(`http://localhost:5555/patient/${data}`)
@@ -65,7 +67,7 @@ const Request = ({ walletAddress }) => {
     <div>
       <SnackbarProvider />
       <div className="flex flex-col gap-4">
-        {requests.length > 0 ? (
+        {requests.length !== 0 ? (
           requests.map((request, index) => (
             <div
               key={index}

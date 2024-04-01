@@ -2,7 +2,12 @@ import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 
-const Send = ({ walletAddress, designation }) => {
+const Send = ({
+  walletAddress,
+  designation,
+  transactions,
+  setTransactions,
+}) => {
   const [receiver, setReceiver] = useState("");
 
   const addToDoctor = () => {
@@ -15,6 +20,7 @@ const Send = ({ walletAddress, designation }) => {
     }
 
     const data = [walletAddress, receiver];
+    setTransactions([...transactions, receiver]);
 
     axios
       .put(`http://localhost:5555/patient/${data}`)
