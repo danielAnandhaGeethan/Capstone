@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const Display = ({ data, display }) => {
   return (
     <div className={`${display ? "opacity-100" : "hidden"}`}>
-      <div className="flex flex-col gap-7 border px-10 py-2 shadow-2xl rounded-2xl">
+      <div className="flex flex-col gap-7 border px-10 py-2 shadow-2xl rounded-2xl bg-white/40 border border-gray-300">
         <h1 className="text-center text-xl font-semibold underline text-[#063B4B]">
           Report
         </h1>

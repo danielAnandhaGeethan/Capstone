@@ -56,7 +56,17 @@ const Approves = ({ walletAddress, getContract }) => {
 
   const removeData = (key) => {
     const x = data.filter((datum) => datum !== key);
-    setData(x);
+
+    axios
+      .put(
+        `http://localhost:5555/doctor/${walletAddress}/${
+          x.length === 0 ? "null" : x.join(",")
+        }`
+      )
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -67,12 +77,10 @@ const Approves = ({ walletAddress, getContract }) => {
           data.map((data, index) => (
             <div
               key={index}
-              className="bg-white/20 w-[500px] px-10 pt-4 pb-2 rounded-3xl flex flex-col items-center gap-4 shadow-xl"
+              className="bg-white/40 border border-gray-300 w-[500px] px-10 pt-4 pb-2 rounded-3xl flex flex-col items-center gap-4 shadow-xl"
             >
               <div>
-                <h1 className="font-semibold text-[#344966] text-center">
-                  {data}
-                </h1>
+                <h1 className="text-center">{data}</h1>
               </div>
               <div className="flex justify-between gap-48 px-3">
                 <button
@@ -98,9 +106,7 @@ const Approves = ({ walletAddress, getContract }) => {
             </div>
           ))
         ) : (
-          <h1 className="text-2xl text-[#344966]">
-            !!! No Approves Available !!!
-          </h1>
+          <h1 className="text-2xl font-semibold">!!! No Approves !!!</h1>
         )}
       </div>
     </div>

@@ -101,9 +101,59 @@ router.put("/patient/:data", async (req, res) => {
       { new: true }
     );
 
-    console.log(updatedClient);
-
     if (updatedClient) {
+      return res.status(200).send({ message: "Done" });
+    } else {
+      return res.status(400).send({ message: "No such user" });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+});
+
+router.put("/doctor/:address/:approves", async (req, res) => {
+  try {
+    const { address, approves } = req.params;
+
+    let modifiedApproves;
+    if (approves === "null") modifiedApproves = [];
+    else modifiedApproves = approves.split(",");
+
+    const updatedApproves = await Client.findOneAndUpdate(
+      { address: address },
+      { $set: { communications: modifiedApproves } },
+      { new: true }
+    );
+
+    if (updatedApproves) {
+      return res.status(200).send({ message: "Done" });
+    } else {
+      return res.status(400).send({ message: "No such user" });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+});
+
+router.put("/patient/:address/:approves", async (req, res) => {
+  try {
+    const { address, approves } = req.params;
+
+    let modifiedApproves;
+    if (approves === "null") modifiedApproves = [];
+    else modifiedApproves = approves.split(",");
+
+    const updatedApproves = await Client.findOneAndUpdate(
+      { address: address },
+      { $set: { communications: modifiedApproves } },
+      { new: true }
+    );
+
+    if (updatedApproves) {
       return res.status(200).send({ message: "Done" });
     } else {
       return res.status(400).send({ message: "No such user" });

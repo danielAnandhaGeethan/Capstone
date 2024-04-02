@@ -39,6 +39,10 @@ const Request = ({ walletAddress, transactions, setTransactions }) => {
     const data = [walletAddress, receiver];
 
     setTransactions([...transactions, receiver]);
+    localStorage.setItem(
+      "transactions",
+      JSON.stringify([...transactions, receiver])
+    );
 
     axios
       .put(`http://localhost:5555/patient/${data}`)
@@ -60,7 +64,17 @@ const Request = ({ walletAddress, transactions, setTransactions }) => {
 
   const removeRequest = (data) => {
     const x = requests.filter((request) => request !== data);
-    setRequests(x);
+
+    axios
+      .put(
+        `http://localhost:5555/patient/${walletAddress}/${
+          x.length === 0 ? "null" : x.join(",")
+        }`
+      )
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -71,14 +85,16 @@ const Request = ({ walletAddress, transactions, setTransactions }) => {
           requests.map((request, index) => (
             <div
               key={index}
-              className="bg-white/20 px-10 pt-4 pb-2 rounded-3xl flex flex-col gap-3 shadow-xl"
+              className="bg-white/40 px-10 pt-4 pb-2 rounded-3xl flex flex-col gap-3 shadow-xl w-[500px]"
             >
               <div>
-                <h1 className="font-semibold text-[#344966]">{request}</h1>
+                <h1 className="font-semibold text-[#344966] text-center">
+                  {request}
+                </h1>
               </div>
               <div className="flex justify-between px-3">
                 <button
-                  className="text-green-600 font-semibold border border-green-600 rounded-xl px-1"
+                  className="text-green-700 font-semibold border border-green-700 rounded-xl px-1"
                   onClick={() => addToDoctor(request)}
                 >
                   Approve
@@ -93,7 +109,7 @@ const Request = ({ walletAddress, transactions, setTransactions }) => {
             </div>
           ))
         ) : (
-          <h1 className="text-2xl text-[#344966]">
+          <h1 className="text-2xl font-semibold">
             !!! No Pending Requests !!!
           </h1>
         )}

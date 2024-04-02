@@ -21,6 +21,10 @@ const Send = ({
 
     const data = [walletAddress, receiver];
     setTransactions([...transactions, receiver]);
+    localStorage.setItem(
+      "transactions",
+      JSON.stringify([...transactions, receiver])
+    );
 
     axios
       .put(`http://localhost:5555/patient/${data}`)
@@ -47,7 +51,7 @@ const Send = ({
         placeholder={`Enter ${
           designation === "Doctor" ? "Patient" : "Doctor"
         }'s Address . . .`}
-        className="px-5 py-1 focus:outline-none rounded-2xl w-[450px] text-center"
+        className="px-5 py-1 focus:outline-none rounded-2xl w-[450px] text-center border border-gray-300"
         value={receiver}
         onChange={(e) => setReceiver(e.target.value)}
       />

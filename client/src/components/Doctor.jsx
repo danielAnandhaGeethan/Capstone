@@ -8,6 +8,7 @@ import send from "../assets/send.png";
 import ViewData from "./ViewData";
 import Send from "./Send";
 import Approves from "./Approves";
+import bg from "../assets/bg.jpg";
 
 const Doctor = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
@@ -23,12 +24,26 @@ const Doctor = ({ walletAddress, setWalletAddress }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F5F9E9] to-[#869798]">
+    <div className="min-h-screen">
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
       />
       <div className="flex flex-col items-center py-28 gap-7">
+        <div className="">
+          <div
+            style={{
+              width: "50%",
+              height: "1960px",
+              backgroundImage: `url(${bg})`,
+              backgroundSize: "100% auto",
+              backgroundPosition: "center",
+              backgroundRepeat: "repeat-y",
+            }}
+            className="absolute inset-0 top-0 left-0 z-[-2]"
+          ></div>
+          <div className="bg-black inset-0 absolute z-[-1] bg-opacity-20 w-[50%] h-[1960px]"></div>
+        </div>
         <div className="flex justify-center items-center gap-5 fixed">
           <img
             src={search}
@@ -57,7 +72,11 @@ const Doctor = ({ walletAddress, setWalletAddress }) => {
         </div>
         <div className="mt-20">
           {current === 1 ? (
-            <ViewData walletAddress={walletAddress} getContract={getContract} />
+            <ViewData
+              walletAddress={walletAddress}
+              getContract={getContract}
+              designation={2}
+            />
           ) : current === 2 ? (
             <Approves walletAddress={walletAddress} getContract={getContract} />
           ) : (

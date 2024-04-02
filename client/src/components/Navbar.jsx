@@ -12,14 +12,19 @@ const Navbar = ({ walletAddress, setWalletAddress }) => {
   };
 
   return (
-    <div className="w-full border-b border-gray-300 flex justify-center fixed left-0 top-0">
-      <div className="py-4">
+    <div className="w-full flex justify-center fixed left-0 top-0">
+      <div
+        className="py-4 flex items-center gap-4"
+        onClick={() => navigate("/")}
+      >
         <img
           src={Mediblock}
           alt="MediBlock"
           className="h-[42px] cursor-pointer"
-          onClick={() => navigate("/")}
         />
+        <h1 className="text-4xl text-black/60 font-semibold cursor-pointer">
+          MediBlock
+        </h1>
       </div>
       {walletAddress !== null ? (
         <div className="absolute right-0 cursor-pointer" onClick={logout}>

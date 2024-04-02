@@ -3,7 +3,7 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 import Display from "./Display";
 
-const ViewData = ({ walletAddress, getContract }) => {
+const ViewData = ({ walletAddress, getContract, designation }) => {
   const [cid, setCid] = useState("");
   const [password, setPassword] = useState("");
   const [key, setKey] = useState("");
@@ -12,6 +12,8 @@ const ViewData = ({ walletAddress, getContract }) => {
   const [display, setDisplay] = useState(false);
 
   const getCid = async () => {
+    console.log("Clicked");
+
     if (password.length === 0) {
       enqueueSnackbar("Incomplete Data", {
         variant: "warning",
@@ -74,7 +76,7 @@ const ViewData = ({ walletAddress, getContract }) => {
         <input
           type="password"
           placeholder="Enter Password . . . "
-          className="focus:outline-none px-2 py-1 rounded-2xl"
+          className="focus:outline-none px-2 py-1 rounded-2xl border border-gray-300"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -82,17 +84,19 @@ const ViewData = ({ walletAddress, getContract }) => {
           className="bg-blue-500 px-2 rounded-2xl text-black/90"
           onClick={getCid}
         >
-          Get CID
+          {designation === 1 ? "Get CID" : "Submit"}
         </button>
       </div>
       <div>
-        <h1 className="font-semibold text-[#344966] text-lg">{cid}</h1>
+        <h1 className="font-semibold text-lg bg-white/30 rounded-full">
+          {cid}
+        </h1>
       </div>
       <div className={`${clicked ? "opacity-100" : "hidden"} flex gap-3`}>
         <input
           type="text"
           placeholder="Enter CID . . ."
-          className="px-5 py-1 rounded-2xl focus:outline-none w-[500px] text-center"
+          className="px-5 py-1 rounded-2xl focus:outline-none w-[500px] text-center border border-gray-300"
           value={key}
           onChange={(e) => setKey(e.target.value)}
         />

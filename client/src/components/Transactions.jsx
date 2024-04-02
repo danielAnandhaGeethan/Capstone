@@ -1,14 +1,14 @@
 const Transactions = ({ walletAddress, transactions }) => {
   return (
-    <div className="shadow-2xl px-20 py-10 border border-white/20 rounded-xl">
+    <div className="shadow-2xl px-20 py-10 border border-gray-300 bg-white/40 rounded-xl">
       <div className="flex flex-col gap-9">
         <h1 className="text-center text-2xl font-semibold">
           Accessible Doctors
         </h1>
-        <div className="flex flex-col gap-5 w-full">
+        <div className="flex flex-col gap-8 w-full">
           {transactions.map((transaction, index) => (
-            <div className="text-gray-900 -ml-8" key={index}>
-              {transaction}
+            <div className="text-black -ml-8" key={index}>
+              ⫸ {transaction}
             </div>
           ))}
         </div>

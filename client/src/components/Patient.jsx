@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import History from "./History";
 import request from "../assets/request.png";
@@ -12,14 +12,18 @@ import Send from "./Send";
 import Request from "./Request";
 import { ethers } from "ethers";
 import { contractAddress, contractAbi } from "../constants/constants";
+import bg from "../assets/bg.jpg";
 
 const Patient = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
-  const [transactions, setTransactions] = useState([
-    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
-    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
-    "0xe8b4f8aebfd6b04b779603d19ee06af6bb7a2f40",
-  ]);
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const storedTransactions = JSON.parse(localStorage.getItem("transactions"));
+    if (storedTransactions) {
+      setTransactions(storedTransactions);
+    }
+  }, []);
 
   const getContract = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -32,12 +36,26 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F5F9E9] to-[#869798]">
+    <div className="min-h-screen">
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
       />
       <div className="flex flex-col items-center py-28 gap-7">
+        <div className="">
+          <div
+            style={{
+              width: "50%",
+              height: "2000px",
+              backgroundImage: `url(${bg})`,
+              backgroundSize: "100% auto",
+              backgroundPosition: "center",
+              backgroundRepeat: "repeat-y",
+            }}
+            className="absolute inset-0 top-0 left-0 z-[-2]"
+          ></div>
+          <div className="bg-black inset-0 absolute z-[-1] bg-opacity-20 w-[50%] h-[2000px]"></div>
+        </div>
         <div className="flex justify-center items-center gap-5 fixed">
           <img
             src={history}
@@ -89,7 +107,11 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
               transactions={transactions}
             />
           ) : current === 3 ? (
-            <ViewData walletAddress={walletAddress} getContract={getContract} />
+            <ViewData
+              walletAddress={walletAddress}
+              getContract={getContract}
+              designation={1}
+            />
           ) : current === 4 ? (
             <Request
               walletAddress={walletAddress}

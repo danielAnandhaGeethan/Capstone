@@ -25,7 +25,7 @@ const PresentData = ({
   return (
     <div>
       <div className="flex flex-col gap-1">
-        <h1 className="text-[#468655] font-semibold underline">Present Data</h1>
+        <h1 className="text-green-900 font-semibold underline">Present Data</h1>
         <div>
           <h1 className="text-[#124559] font-semibold">Current Problem</h1>
           <input
