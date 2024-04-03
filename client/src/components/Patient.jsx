@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import History from "./History";
 import request from "../assets/request.png";
-import history from "../assets/history.png";
+import entry from "../assets/history.png";
 import search from "../assets/search.png";
 import transact from "../assets/transactions.png";
 import send from "../assets/send.png";
@@ -13,17 +13,34 @@ import Request from "./Request";
 import { ethers } from "ethers";
 import { contractAddress, contractAbi } from "../constants/constants";
 import bg from "../assets/bg.jpg";
+import axios from "axios";
+import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 const Patient = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
-  const [transactions, setTransactions] = useState([]);
+  const [transacts, setTransacts] = useState([]);
 
   useEffect(() => {
-    const storedTransactions = JSON.parse(localStorage.getItem("transactions"));
-    if (storedTransactions) {
-      setTransactions(storedTransactions);
-    }
-  }, []);
+    getTransactions();
+  });
+
+  const getTransactions = async () => {
+    const data = [walletAddress];
+
+    axios
+      .get(`http://localhost:5555/patient/${data}`)
+      .then((res) => {
+        const data = res.data.transactions;
+
+        setTransacts(data);
+      })
+      .catch((err) => {
+        enqueueSnackbar("Server Error !!!", {
+          variant: "error",
+          autoHideDuration: 3000,
+        });
+      });
+  };
 
   const getContract = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -37,6 +54,7 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
 
   return (
     <div className="min-h-screen">
+      <SnackbarProvider />
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
@@ -58,7 +76,7 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
         </div>
         <div className="flex justify-center items-center gap-5 fixed">
           <img
-            src={history}
+            src={entry}
             alt="Enter"
             className={`${
               current === 1 ? "opacity-100 scale-125" : "opacity-30"
@@ -102,10 +120,7 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
           {current === 1 ? (
             <History walletAddress={walletAddress} getContract={getContract} />
           ) : current === 2 ? (
-            <Transactions
-              walletAddress={walletAddress}
-              transactions={transactions}
-            />
+            <Transactions transacts={transacts} />
           ) : current === 3 ? (
             <ViewData
               walletAddress={walletAddress}
@@ -115,15 +130,15 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
           ) : current === 4 ? (
             <Request
               walletAddress={walletAddress}
-              transactions={transactions}
-              setTransactions={setTransactions}
+              transacts={transacts}
+              setTransacts={setTransacts}
             />
           ) : (
             <Send
               walletAddress={walletAddress}
               designation="Patient"
-              transactions={transactions}
-              setTransactions={setTransactions}
+              transacts={transacts}
+              setTransacts={setTransacts}
             />
           )}
         </div>

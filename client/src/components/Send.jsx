@@ -2,12 +2,7 @@ import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 
-const Send = ({
-  walletAddress,
-  designation,
-  transactions,
-  setTransactions,
-}) => {
+const Send = ({ walletAddress, designation, transacts, setTransacts }) => {
   const [receiver, setReceiver] = useState("");
 
   const addToDoctor = () => {
@@ -20,19 +15,19 @@ const Send = ({
     }
 
     const data = [walletAddress, receiver];
-    setTransactions([...transactions, receiver]);
-    localStorage.setItem(
-      "transactions",
-      JSON.stringify([...transactions, receiver])
-    );
 
     axios
       .put(`http://localhost:5555/patient/${data}`)
       .then((res) => {
-        enqueueSnackbar(`Approved for ${receiver}`, {
-          variant: "success",
-          autoHideDuration: 3000,
-        });
+        enqueueSnackbar(
+          `${
+            designation === 1 ? "Approved for " : "Request sent to "
+          } ${receiver}`,
+          {
+            variant: "success",
+            autoHideDuration: 3000,
+          }
+        );
         setReceiver("");
       })
       .catch((err) => {
@@ -41,6 +36,22 @@ const Send = ({
           autoHideDuration: 3000,
         });
       });
+
+    if (designation === 1) {
+      if (!transacts.includes(receiver)) {
+        axios
+          .put("http://localhost:5555/patient", {
+            address: walletAddress,
+            transactions: [...transacts, receiver],
+          })
+          .then((res) => {
+            setTransacts([...transacts, receiver]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
   };
 
   return (

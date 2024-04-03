@@ -1,4 +1,4 @@
-const Transactions = ({ walletAddress, transactions }) => {
+const Transactions = ({ transacts }) => {
   return (
     <div className="shadow-2xl px-20 py-10 border border-gray-300 bg-white/40 rounded-xl">
       <div className="flex flex-col gap-9">
@@ -6,9 +6,9 @@ const Transactions = ({ walletAddress, transactions }) => {
           Accessible Doctors
         </h1>
         <div className="flex flex-col gap-8 w-full">
-          {transactions.map((transaction, index) => (
+          {transacts.map((transact, index) => (
             <div className="text-black -ml-8" key={index}>
-              ⫸ {transaction}
+              ⫸ {transact}
             </div>
           ))}
         </div>

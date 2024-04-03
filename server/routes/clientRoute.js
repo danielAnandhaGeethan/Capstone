@@ -88,6 +88,28 @@ router.get("/patient/:data", async (req, res) => {
   }
 });
 
+router.get("/doctor/:data", async (req, res) => {
+  try {
+    const data = req.params.data.split(",");
+
+    const address = data[0];
+
+    const client = await Client.findOne({
+      address,
+    });
+
+    if (client) {
+      return res.status(200).json(client);
+    } else {
+      return res.status(400).send({ message: "No such user" });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+});
+
 router.put("/patient/:data", async (req, res) => {
   try {
     const data = req.params.data.split(",");
@@ -154,6 +176,32 @@ router.put("/patient/:address/:approves", async (req, res) => {
     );
 
     if (updatedApproves) {
+      return res.status(200).send({ message: "Done" });
+    } else {
+      return res.status(400).send({ message: "No such user" });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+});
+
+router.put("/patient", async (req, res) => {
+  try {
+    const { address, transactions } = req.body;
+
+    let modifiedTransactions;
+    if (transactions === "null") modifiedTransactions = [];
+    else modifiedTransactions = transactions;
+
+    const updatedTransactions = await Client.findOneAndUpdate(
+      { address: address },
+      { $set: { transactions: modifiedTransactions } },
+      { new: true }
+    );
+
+    if (updatedTransactions) {
       return res.status(200).send({ message: "Done" });
     } else {
       return res.status(400).send({ message: "No such user" });

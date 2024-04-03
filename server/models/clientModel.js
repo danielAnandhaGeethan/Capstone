@@ -24,6 +24,9 @@ const ClientSchema = mongoose.Schema({
   communications: {
     type: [String],
   },
+  transactions: {
+    type: [String],
+  },
 });
 
 const Client = mongoose.model("clients", ClientSchema);

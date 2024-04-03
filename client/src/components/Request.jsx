@@ -2,7 +2,7 @@ import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 
-const Request = ({ walletAddress, transactions, setTransactions }) => {
+const Request = ({ walletAddress, transacts, setTransacts }) => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -38,12 +38,6 @@ const Request = ({ walletAddress, transactions, setTransactions }) => {
   const addToDoctor = (receiver) => {
     const data = [walletAddress, receiver];
 
-    setTransactions([...transactions, receiver]);
-    localStorage.setItem(
-      "transactions",
-      JSON.stringify([...transactions, receiver])
-    );
-
     axios
       .put(`http://localhost:5555/patient/${data}`)
       .then((res) => {
@@ -59,6 +53,18 @@ const Request = ({ walletAddress, transactions, setTransactions }) => {
           variant: "error",
           autoHideDuration: 3000,
         });
+      });
+
+    axios
+      .put("http://localhost:5555/patient", {
+        address: walletAddress,
+        transactions: [...transacts, receiver],
+      })
+      .then((res) => {
+        setTransacts([...transacts, receiver]);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

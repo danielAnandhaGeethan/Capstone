@@ -6,6 +6,8 @@ const Approves = ({ walletAddress, getContract }) => {
   const [data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [cid, setCid] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState();
 
   useEffect(() => {
     getApproves();
@@ -49,6 +51,16 @@ const Approves = ({ walletAddress, getContract }) => {
       const x = await mediChain.getPatientInfo(patient);
       setCid(x);
       setClicked(!clicked);
+
+      axios
+        .get(`http://localhost:5555/doctor/${patient}`)
+        .then((res) => {
+          setName(res.data.name);
+          setAge(res.data.age);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -101,6 +113,10 @@ const Approves = ({ walletAddress, getContract }) => {
                   clicked === true ? "opacity-100" : "hidden"
                 } absolute mt-20 bg-white/30 pt-4 pb-2 w-[500px] text-center rounded-2xl`}
               >
+                <h1 className="text-black/80 font-semibold flex justify-between px-8">
+                  <span>Name : {name}</span>
+                  <span>Age : {age}</span>
+                </h1>
                 <h1 className="text-black/80 font-semibold">{cid}</h1>
               </div>
             </div>
