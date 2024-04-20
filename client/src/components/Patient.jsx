@@ -9,20 +9,51 @@ import send from "../assets/send.png";
 import ViewData from "./ViewData";
 import Transactions from "./Transactions";
 import Send from "./Send";
-import Request from "./Request";
+import Requests from "./Requests";
 import { ethers } from "ethers";
 import { contractAddress, contractAbi } from "../constants/constants";
-import bg from "../assets/bg.jpg";
 import axios from "axios";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 
 const Patient = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
   const [transacts, setTransacts] = useState([]);
+  const designation = localStorage.getItem("designation");
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
 
   useEffect(() => {
     getTransactions();
+    getId();
   });
+
+  const getId = async () => {
+    const data = [walletAddress, designation];
+
+    axios
+      .get(`http://localhost:5555/usernames/${data}`)
+      .then((res) => {
+        const username = res.data;
+
+        setId(username.patients[0].id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`http://localhost:5555/clients/${walletAddress}`)
+      .then((res) => {
+        const client = res.data;
+
+        setName(client.name);
+        setAge(client.age);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getTransactions = async () => {
     const data = [walletAddress];
@@ -58,22 +89,11 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
+        id={id}
+        name={name}
+        age={age}
       />
       <div className="flex flex-col items-center py-28 gap-7">
-        <div className="">
-          <div
-            style={{
-              width: "50%",
-              height: "2000px",
-              backgroundImage: `url(${bg})`,
-              backgroundSize: "100% auto",
-              backgroundPosition: "center",
-              backgroundRepeat: "repeat-y",
-            }}
-            className="absolute inset-0 top-0 left-0 z-[-2]"
-          ></div>
-          <div className="bg-black inset-0 absolute z-[-1] bg-opacity-20 w-[50%] h-[2000px]"></div>
-        </div>
         <div className="flex justify-center items-center gap-5 fixed">
           <img
             src={entry}
@@ -122,13 +142,9 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
           ) : current === 2 ? (
             <Transactions transacts={transacts} />
           ) : current === 3 ? (
-            <ViewData
-              walletAddress={walletAddress}
-              getContract={getContract}
-              designation={1}
-            />
+            <ViewData walletAddress={walletAddress} getContract={getContract} />
           ) : current === 4 ? (
-            <Request
+            <Requests
               walletAddress={walletAddress}
               transacts={transacts}
               setTransacts={setTransacts}
@@ -136,7 +152,6 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
           ) : (
             <Send
               walletAddress={walletAddress}
-              designation="Patient"
               transacts={transacts}
               setTransacts={setTransacts}
             />

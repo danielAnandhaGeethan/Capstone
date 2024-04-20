@@ -26,10 +26,10 @@ const OtherData = ({
           type="text"
           value={currentSurgery}
           onChange={(e) => setCurrentSurgery(e.target.value)}
-          className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+          className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
         />
         <button
-          className="ml-3 bg-white/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
+          className="ml-3 bg-gray-300/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
           onClick={() => addSurgery()}
         >
           Add
@@ -42,10 +42,10 @@ const OtherData = ({
           type="text"
           value={currentMedication}
           onChange={(e) => setCurrentMedication(e.target.value)}
-          className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+          className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
         />
         <button
-          className="ml-3 bg-white/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
+          className="ml-3 bg-gray-300/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
           onClick={() => addMedication()}
         >
           Add
@@ -58,10 +58,10 @@ const OtherData = ({
           type="text"
           value={currentAllergy}
           onChange={(e) => setCurrentAllergy(e.target.value)}
-          className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+          className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
         />
         <button
-          className="ml-3 bg-white/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
+          className="ml-3 bg-gray-300/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
           onClick={() => addAllergy()}
         >
           Add

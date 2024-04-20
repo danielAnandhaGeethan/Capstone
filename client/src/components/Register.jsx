@@ -84,7 +84,7 @@ const Register = ({ walletAddress, setCurrent }) => {
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm text-[#152528]"
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none text-sm text-[#152528]"
           />
         </div>
         <div>
@@ -93,7 +93,7 @@ const Register = ({ walletAddress, setCurrent }) => {
             placeholder="Age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
-            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none text-sm"
           />
         </div>
         <div className="flex gap-5">
@@ -122,7 +122,7 @@ const Register = ({ walletAddress, setCurrent }) => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none text-sm"
           />
         </div>
         <div>
@@ -131,12 +131,12 @@ const Register = ({ walletAddress, setCurrent }) => {
             placeholder="Confirm Password"
             value={rePassword}
             onChange={(e) => setRePassword(e.target.value)}
-            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
+            className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none text-sm"
           />
         </div>
       </div>
       <div className="flex flex-col items-center gap-3">
-        <div className="bg-green-600 px-2 py-1 rounded-xl">
+        <div className="bg-green-600 px-2 py-1 rounded-xl text-sm">
           <button onClick={() => pushData()}>Register</button>
         </div>
         <div>

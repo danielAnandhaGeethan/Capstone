@@ -16,12 +16,11 @@ const Login = ({ walletAddress, setCurrent }) => {
       return;
     }
 
-    const data = [walletAddress, password];
-
     axios
-      .get(`http://localhost:5555/clients/${data}`)
+      .get(`http://localhost:5555/clients/${walletAddress}/${password}`)
       .then((res) => {
-        const designation = res.data.designation;
+        const designation = res.data.designation.toString();
+        localStorage.setItem("designation", designation);
 
         enqueueSnackbar("Logged In successfully", {
           variant: "success",
@@ -29,7 +28,7 @@ const Login = ({ walletAddress, setCurrent }) => {
         });
 
         setTimeout(() => {
-          navigate(designation === 1 ? "/patient" : "/doctor");
+          navigate(designation === "1" ? "/patient" : "/doctor");
         }, 1000);
       })
       .catch((err) => {
@@ -49,11 +48,11 @@ const Login = ({ walletAddress, setCurrent }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none placeholder:text-sm"
+          className="rounded-xl p-1 bg-opacity-70 bg-white focus:outline-none text-sm"
         />
       </div>
       <div className="flex flex-col justify-center items-center gap-3">
-        <div className="bg-green-600 px-2 py-1 rounded-xl">
+        <div className="bg-green-600 px-2 py-1 rounded-xl text-sm">
           <button onClick={() => getData()}>Login</button>
         </div>
         <div>

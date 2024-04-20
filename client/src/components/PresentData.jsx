@@ -32,7 +32,7 @@ const PresentData = ({
             type="text"
             value={currentProblem}
             onChange={(e) => setCurrentProblem(e.target.value)}
-            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+            className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
         <div>
@@ -43,7 +43,7 @@ const PresentData = ({
             type="text"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+            className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
         <div>
@@ -54,10 +54,10 @@ const PresentData = ({
             type="text"
             value={currentSymptom}
             onChange={(e) => setCurrentSymptom(e.target.value)}
-            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+            className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
           />
           <button
-            className="ml-3 bg-white/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
+            className="ml-3 bg-gray-300/40 px-2 py-1 text-[#444B44] rounded-xl hover:scale-105"
             onClick={() => addSymptom()}
           >
             Add
@@ -70,7 +70,7 @@ const PresentData = ({
             type="text"
             value={aggrevating}
             onChange={(e) => setAggrevating(e.target.value)}
-            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+            className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
         <div>
@@ -79,7 +79,7 @@ const PresentData = ({
             type="text"
             value={relieving}
             onChange={(e) => setRelieving(e.target.value)}
-            className="focus:outline-none rounded-xl bg-white bg-opacity-70 px-2 text-[#444B44] text-md"
+            className="focus:outline-none rounded-xl bg-gray-300 bg-opacity-70 px-2 text-[#444B44] text-md"
           />
         </div>
       </div>

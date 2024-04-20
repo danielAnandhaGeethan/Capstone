@@ -3,7 +3,7 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 
 const Approves = ({ walletAddress, getContract }) => {
-  const [data, setData] = useState([]);
+  const [approves, setApproves] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [cid, setCid] = useState("");
   const [name, setName] = useState("");
@@ -24,19 +24,31 @@ const Approves = ({ walletAddress, getContract }) => {
 
     const data = [walletAddress];
 
-    axios
-      .get(`http://localhost:5555/patient/${data}`)
-      .then((res) => {
-        const approves = res.data.communications;
+    try {
+      const response = await axios.get(`http://localhost:5555/patient/${data}`);
+      const approved = response.data.communications;
 
-        setData(approves);
-      })
-      .catch((err) => {
-        enqueueSnackbar("Server Error !!!", {
-          variant: "error",
-          autoHideDuration: 3000,
-        });
+      let temp = [];
+      await Promise.all(
+        approved.map(async (approve) => {
+          const data = [approve, 1];
+          const getResponse = await axios.get(
+            `http://localhost:5555/usernames/${data}`
+          );
+
+          const username = getResponse.data;
+          temp.push({ address: approve, id: username.patients[0].id });
+        })
+      );
+
+      setApproves(temp);
+    } catch (err) {
+      console.log(err);
+      enqueueSnackbar("Server Error !!!", {
+        variant: "error",
+        autoHideDuration: 3000,
       });
+    }
   };
 
   const viewCid = async (patient) => {
@@ -45,15 +57,15 @@ const Approves = ({ walletAddress, getContract }) => {
       return;
     }
 
-    const mediChain = await getContract();
-
     try {
-      const x = await mediChain.getPatientInfo(patient);
+      const mediChain = await getContract();
+
+      const x = await mediChain.getPatientInfo(patient.address);
       setCid(x);
       setClicked(!clicked);
 
       axios
-        .get(`http://localhost:5555/doctor/${patient}`)
+        .get(`http://localhost:5555/doctor/${patient.address}`)
         .then((res) => {
           setName(res.data.name);
           setAge(res.data.age);
@@ -67,12 +79,19 @@ const Approves = ({ walletAddress, getContract }) => {
   };
 
   const removeData = (key) => {
-    const x = data.filter((datum) => datum !== key);
+    const x = approves.filter((datum) => datum !== key);
+
+    let y = [];
+    for (const item of x) {
+      y.push(item.address);
+    }
+
+    setApproves(y);
 
     axios
       .put(
         `http://localhost:5555/doctor/${walletAddress}/${
-          x.length === 0 ? "null" : x.join(",")
+          y.length === 0 ? "null" : y.join(",")
         }`
       )
       .then((res) => {})
@@ -85,14 +104,14 @@ const Approves = ({ walletAddress, getContract }) => {
     <div>
       <SnackbarProvider />
       <div className="flex flex-col gap-4">
-        {data.length !== 0 ? (
-          data.map((data, index) => (
+        {approves.length !== 0 ? (
+          approves.map((data, index) => (
             <div
               key={index}
               className="bg-white/40 border border-gray-300 w-[500px] px-10 pt-4 pb-2 rounded-3xl flex flex-col items-center gap-4 shadow-xl"
             >
               <div>
-                <h1 className="text-center">{data}</h1>
+                <h1 className="text-center">{data.id}</h1>
               </div>
               <div className="flex justify-between gap-48 px-3">
                 <button

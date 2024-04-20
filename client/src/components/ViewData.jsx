@@ -3,13 +3,15 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 import Display from "./Display";
 
-const ViewData = ({ walletAddress, getContract, designation }) => {
+const ViewData = ({ walletAddress, getContract }) => {
   const [cid, setCid] = useState("");
   const [password, setPassword] = useState("");
   const [key, setKey] = useState("");
   const [data, setData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [display, setDisplay] = useState(false);
+
+  const designation = localStorage.getItem("designation");
 
   const getCid = async () => {
     console.log("Clicked");
@@ -25,7 +27,7 @@ const ViewData = ({ walletAddress, getContract, designation }) => {
     const data = [walletAddress, password];
 
     axios
-      .get(`http://localhost:5555/clients/${data}`)
+      .get(`http://localhost:5555/clients/${walletAddress}/${password}`)
       .then(async (res) => {
         const mediChain = await getContract();
 
@@ -70,13 +72,17 @@ const ViewData = ({ walletAddress, getContract, designation }) => {
   };
 
   return (
-    <div className="flex flex-col gap-7 items-center">
+    <div
+      className={`${
+        clicked === false ? "mt-10 md:mt-20" : ""
+      }flex flex-col gap-7 items-center`}
+    >
       <SnackbarProvider />
       <div className="flex gap-3">
         <input
           type="password"
           placeholder="Enter Password . . . "
-          className="focus:outline-none px-2 py-1 rounded-2xl border border-gray-300"
+          className="focus:outline-none text-sm px-2 py-1 rounded-2xl border border-gray-300"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />

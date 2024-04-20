@@ -132,7 +132,7 @@ const History = ({ walletAddress, getContract }) => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="px-4 rounded-xl shadow-2xl md:px-8 py-5 flex flex-col gap-10 bg-white/40 border border-white/30">
+      <div className="px-4 rounded-xl shadow-lg md:px-8 py-5 flex flex-col gap-10 bg-white/40 border border-gray-300">
         <div className="Gender">
           <h1 className="text-[#124559] font-semibold">Gender</h1>
           <div className="flex gap-5 items-center">

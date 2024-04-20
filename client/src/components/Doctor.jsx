@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { contractAddress, contractAbi } from "../constants/constants";
 import Navbar from "./Navbar";
 import search from "../assets/search.png";
@@ -9,9 +9,45 @@ import ViewData from "./ViewData";
 import Send from "./Send";
 import Approves from "./Approves";
 import bg from "../assets/bg.jpg";
+import axios from "axios";
 
 const Doctor = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState(1);
+  const designation = localStorage.getItem("designation");
+  const [id, setId] = useState("");
+  const [age, setAge] = useState("");
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    getId();
+  });
+
+  const getId = async () => {
+    const data = [walletAddress, designation];
+
+    axios
+      .get(`http://localhost:5555/usernames/${data}`)
+      .then((res) => {
+        const username = res.data;
+
+        setId(username.doctors[0].id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`http://localhost:5555/clients/${walletAddress}`)
+      .then((res) => {
+        const client = res.data;
+
+        setName(client.name);
+        setAge(client.age);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getContract = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -28,22 +64,11 @@ const Doctor = ({ walletAddress, setWalletAddress }) => {
       <Navbar
         walletAddress={walletAddress}
         setWalletAddress={setWalletAddress}
+        id={id}
+        name={name}
+        age={age}
       />
       <div className="flex flex-col items-center py-28 gap-7">
-        <div className="">
-          <div
-            style={{
-              width: "50%",
-              height: "1960px",
-              backgroundImage: `url(${bg})`,
-              backgroundSize: "100% auto",
-              backgroundPosition: "center",
-              backgroundRepeat: "repeat-y",
-            }}
-            className="absolute inset-0 top-0 left-0 z-[-2]"
-          ></div>
-          <div className="bg-black inset-0 absolute z-[-1] bg-opacity-20 w-[50%] h-[1960px]"></div>
-        </div>
         <div className="flex justify-center items-center gap-5 fixed">
           <img
             src={search}
@@ -80,7 +105,7 @@ const Doctor = ({ walletAddress, setWalletAddress }) => {
           ) : current === 2 ? (
             <Approves walletAddress={walletAddress} getContract={getContract} />
           ) : (
-            <Send walletAddress={walletAddress} designation="Doctor" />
+            <Send walletAddress={walletAddress} />
           )}
         </div>
       </div>
