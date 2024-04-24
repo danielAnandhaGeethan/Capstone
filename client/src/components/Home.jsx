@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Login from "./Login";
 import Register from "./Register";
-import bg from "../assets/bg.jpg";
 
 const Home = ({ walletAddress, setWalletAddress }) => {
   const [current, setCurrent] = useState("Login");

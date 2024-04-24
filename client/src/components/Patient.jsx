@@ -36,7 +36,7 @@ const Patient = ({ walletAddress, setWalletAddress }) => {
       .then((res) => {
         const username = res.data;
 
-        setId(username.patients[0].id);
+        setId(username.students[0].id);
       })
       .catch((err) => {
         console.log(err);

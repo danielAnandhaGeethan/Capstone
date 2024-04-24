@@ -8,7 +8,6 @@ import send from "../assets/send.png";
 import ViewData from "./ViewData";
 import Send from "./Send";
 import Approves from "./Approves";
-import bg from "../assets/bg.jpg";
 import axios from "axios";
 
 const Doctor = ({ walletAddress, setWalletAddress }) => {
@@ -30,7 +29,7 @@ const Doctor = ({ walletAddress, setWalletAddress }) => {
       .then((res) => {
         const username = res.data;
 
-        setId(username.doctors[0].id);
+        setId(username.staff[0].id);
       })
       .catch((err) => {
         console.log(err);

@@ -37,7 +37,7 @@ const Requests = ({ walletAddress, transacts, setTransacts }) => {
           );
 
           const username = getResponse.data;
-          temp.push({ address: request, id: username.doctors[0].id });
+          temp.push({ address: request, id: username.staff[0].id });
         })
       );
 

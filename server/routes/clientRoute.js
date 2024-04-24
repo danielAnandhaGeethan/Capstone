@@ -12,15 +12,15 @@ router.get("/usernames/:data", async (req, res) => {
 
     let query = {};
     if (designation === 1) {
-      query = { "patients.address": address };
+      query = { "students.address": address };
     } else if (designation === 2) {
-      query = { "doctors.address": address };
+      query = { "staff.address": address };
     } else {
       return res.status(400).send({ message: "Invalid designation" });
     }
 
     if (designation === 1) {
-      const user = await Usernames.findOne(query, { "patients.$": 1 });
+      const user = await Usernames.findOne(query, { "students.$": 1 });
 
       if (user) {
         return res.status(200).json(user);
@@ -28,7 +28,7 @@ router.get("/usernames/:data", async (req, res) => {
         return res.status(400).send({ message: "No such user" });
       }
     } else {
-      const user = await Usernames.findOne(query, { "doctors.$": 1 });
+      const user = await Usernames.findOne(query, { "staff.$": 1 });
 
       if (user) {
         return res.status(200).json(user);
@@ -49,15 +49,15 @@ router.get("/usernames/:id/:designation", async (req, res) => {
 
     let query = {};
     if (parseInt(designation) === 1) {
-      query = { "patients.id": id };
+      query = { "students.id": id };
     } else if (parseInt(designation) === 2) {
-      query = { "doctors.id": id };
+      query = { "staff.id": id };
     } else {
       return res.status(400).send({ message: "Invalid designation" });
     }
 
     if (parseInt(designation) === 1) {
-      const user = await Usernames.findOne(query, { "patients.$": 1 });
+      const user = await Usernames.findOne(query, { "students.$": 1 });
 
       if (user) {
         return res.status(200).json(user);
@@ -65,7 +65,7 @@ router.get("/usernames/:id/:designation", async (req, res) => {
         return res.status(400).send({ message: "No such user" });
       }
     } else {
-      const user = await Usernames.findOne(query, { "doctors.$": 1 });
+      const user = await Usernames.findOne(query, { "staff.$": 1 });
 
       if (user) {
         return res.status(200).json(user);
@@ -80,26 +80,24 @@ router.get("/usernames/:id/:designation", async (req, res) => {
   }
 });
 
-router.get("/usernames/length/:data", async (req, res) => {
+router.get("/usernames", async (req, res) => {
   try {
-    const designation = parseInt(req.params.data);
+    const designation = parseInt(req.query.designation);
 
     let existingUsernames = await Usernames.findOne({});
 
     if (!existingUsernames) {
-      return res.status(404).send({ message: "No usernames found" });
+      return res.status(400).send({ message: "No usernames found" });
     }
 
     const arrayToSearch =
-      designation === 1
-        ? existingUsernames.patients
-        : existingUsernames.doctors;
+      designation === 1 ? existingUsernames.students : existingUsernames.staff;
 
     const lastUser = arrayToSearch[arrayToSearch.length - 1];
 
     if (!lastUser) {
       return res
-        .status(404)
+        .status(400)
         .send({ message: "No users found in the specified array" });
     }
 
@@ -125,14 +123,12 @@ router.post("/usernames/:data", async (req, res) => {
     }
 
     const arrayToUpdate =
-      designation === 1
-        ? existingUsernames.patients
-        : existingUsernames.doctors;
-
+      designation === 1 ? existingUsernames.students : existingUsernames.staff;
     arrayToUpdate.push({ address, id });
-    await existingUsernames.save();
 
-    res.status(201).send({ message: "Usernames created successfully" });
+    console.log(existingUsernames);
+
+    await existingUsernames.save();
   } catch (error) {
     console.error("Error creating usernames:", error);
     res.status(500).send({ error: "Failed to create usernames" });
@@ -152,7 +148,6 @@ router.post("/clients/", async (req, res) => {
     }
 
     const check = await Client.find({ address: req.body.address });
-    console.log(check);
 
     if (check.length > 0) {
       return res.status(500).send({

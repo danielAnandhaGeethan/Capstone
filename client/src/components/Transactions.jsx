@@ -6,7 +6,7 @@ const Transactions = ({ transacts }) => {
 
   useEffect(() => {
     getIds();
-  }, []);
+  }, [transacts]);
 
   const getIds = async () => {
     try {
@@ -19,7 +19,7 @@ const Transactions = ({ transacts }) => {
           );
 
           const username = getResponse.data;
-          temp.push(username.doctors[0].id);
+          temp.push(username.staff[0].id);
         })
       );
 

@@ -11,7 +11,7 @@ const Approves = ({ walletAddress, getContract }) => {
 
   useEffect(() => {
     getApproves();
-  });
+  }, [walletAddress]);
 
   const getApproves = async () => {
     if (walletAddress === "") {
@@ -37,7 +37,7 @@ const Approves = ({ walletAddress, getContract }) => {
           );
 
           const username = getResponse.data;
-          temp.push({ address: approve, id: username.patients[0].id });
+          temp.push({ address: approve, id: username.students[0].id });
         })
       );
 
@@ -51,9 +51,9 @@ const Approves = ({ walletAddress, getContract }) => {
     }
   };
 
-  const viewCid = async (patient) => {
-    if (clicked === true) {
-      setClicked(!clicked);
+  const viewCid = async (patient, index) => {
+    if (clicked !== "") {
+      setClicked("");
       return;
     }
 
@@ -62,7 +62,7 @@ const Approves = ({ walletAddress, getContract }) => {
 
       const x = await mediChain.getPatientInfo(patient.address);
       setCid(x);
-      setClicked(!clicked);
+      setClicked(index);
 
       axios
         .get(`http://localhost:5555/doctor/${patient.address}`)
@@ -106,33 +106,32 @@ const Approves = ({ walletAddress, getContract }) => {
       <div className="flex flex-col gap-4">
         {approves.length !== 0 ? (
           approves.map((data, index) => (
-            <div
-              key={index}
-              className="bg-white/40 border border-gray-300 w-[500px] px-10 pt-4 pb-2 rounded-3xl flex flex-col items-center gap-4 shadow-xl"
-            >
-              <div>
-                <h1 className="text-center">{data.id}</h1>
-              </div>
-              <div className="flex justify-between gap-48 px-3">
-                <button
-                  className="text-blue-600 font-semibold border border-blue-600 rounded-xl px-1"
-                  onClick={() => viewCid(data)}
-                >
-                  View CID
-                </button>
-                <button
-                  className="text-red-600 font-semibold border border-red-600 rounded-xl px-1"
-                  onClick={() => removeData(data)}
-                >
-                  Remove
-                </button>
+            <div key={index}>
+              <div className="bg-white/40 border border-gray-300 w-[500px] px-10 pt-4 pb-2 rounded-3xl flex flex-col items-center gap-4 shadow-xl">
+                <div>
+                  <h1 className="text-center">{data.id}</h1>
+                </div>
+                <div className="flex justify-between gap-48 px-3">
+                  <button
+                    className="text-blue-600 font-semibold border border-blue-600 rounded-xl px-1"
+                    onClick={() => viewCid(data, index)}
+                  >
+                    View CID
+                  </button>
+                  <button
+                    className="text-red-600 font-semibold border border-red-600 rounded-xl px-1"
+                    onClick={() => removeData(data)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
               <div
                 className={`${
-                  clicked === true ? "opacity-100" : "hidden"
-                } absolute mt-20 bg-white/30 pt-4 pb-2 w-[500px] text-center rounded-2xl`}
+                  clicked === index ? "opacity-100" : "hidden"
+                } bg-white/30 pt-4 pb-2 w-[500px] text-center rounded-2xl`}
               >
-                <h1 className="text-black/80 font-semibold flex justify-between px-8">
+                <h1 className="text-black/80 mb-4 font-semibold flex justify-between px-8">
                   <span>Name : {name}</span>
                   <span>Age : {age}</span>
                 </h1>

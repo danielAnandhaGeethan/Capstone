@@ -94,7 +94,13 @@ const ViewData = ({ walletAddress, getContract }) => {
         </button>
       </div>
       <div>
-        <h1 className="font-semibold text-lg bg-white/30 rounded-full">
+        <h1
+          className={`${
+            designation === "1"
+              ? "font-semibold text-lg bg-white/30 rounded-full"
+              : "hidden"
+          }`}
+        >
           {cid}
         </h1>
       </div>

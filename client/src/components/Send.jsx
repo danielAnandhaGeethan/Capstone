@@ -38,9 +38,9 @@ const Send = ({ walletAddress, transacts, setTransacts }) => {
       let receiver = "";
 
       if (designation === "1") {
-        receiver = username.doctors[0].address;
+        receiver = username.staff[0].address;
       } else {
-        receiver = username.patients[0].address;
+        receiver = username.students[0].address;
       }
 
       const data = [walletAddress, receiver];
@@ -50,7 +50,7 @@ const Send = ({ walletAddress, transacts, setTransacts }) => {
       if (designation === "1") {
         if (!transacts.includes(receiver)) {
           axios
-            .put("http://localhost:5555/student", {
+            .put("http://localhost:5555/patient", {
               address: walletAddress,
               transactions: [...transacts, receiver],
             })

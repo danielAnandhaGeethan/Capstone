@@ -51,20 +51,46 @@ const Register = ({ walletAddress, setCurrent }) => {
           autoHideDuration: 1000,
         });
 
-        const x = designation;
+        const x = designation === "patient" ? "1" : "2";
+        localStorage.setItem("designation", x);
+
+        axios
+          .get("http://localhost:5555/usernames", {
+            params: { designation: x },
+          })
+          .then((res) => {
+            const lastData = res.data;
+
+            console.log(res);
+
+            const temp = x === "1" ? "P" : "D";
+            const id = temp + (parseInt(lastData.id.slice(1)) + 1).toString();
+
+            const data = [walletAddress, id, x];
+            axios
+              .post(`http://localhost:5555/usernames/${data}`)
+              .then(res)
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
         setName("");
         setAge("");
         setDesignation("");
         setPassword("");
+        setRePassword("");
 
         setTimeout(() => {
-          navigate(x === "patient" ? "/patient" : "/doctor");
+          navigate(x === "1" ? "/patient" : "/doctor");
         }, 1000);
       })
       .catch((err) => {
         if (err.response && err.response.data) {
-          if (err.response.data.message === "User Already Exists") {
+          if (err.response.data.message === "User Already Registered") {
             enqueueSnackbar(err.response.data.message, {
               variant: "error",
               autoHideDuration: 1000,
