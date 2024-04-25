@@ -52,14 +52,15 @@ const Requests = ({ walletAddress, transacts, setTransacts }) => {
   };
 
   const addToDoctor = (receiver) => {
-    const data = [walletAddress, receiver.address[0]];
+    const data = [walletAddress, receiver.address];
+    console.log(data);
 
     axios
       .put(`http://localhost:5555/patient/${data}`)
       .then((res) => {
         removeRequest(receiver);
 
-        enqueueSnackbar(`Approved for ${receiver.address[0]}`, {
+        enqueueSnackbar(`Approved for ${receiver.address}`, {
           variant: "success",
           autoHideDuration: 3000,
         });
@@ -74,10 +75,10 @@ const Requests = ({ walletAddress, transacts, setTransacts }) => {
     axios
       .put("http://localhost:5555/patient", {
         address: walletAddress,
-        transactions: [...transacts, receiver.address[0]],
+        transactions: [...transacts, receiver.address],
       })
       .then((res) => {
-        setTransacts([...transacts, receiver.address[0]]);
+        setTransacts([...transacts, receiver.address]);
       })
       .catch((err) => {
         console.log(err);
